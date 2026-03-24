@@ -13,8 +13,6 @@
 - **Bundler: esbuild** (required for this sample - `esbuild.config.mjs` and build scripts depend on it). Alternative bundlers like Rollup or webpack are acceptable for other projects if they bundle all external dependencies into `main.js`.
 - Types: `obsidian` type definitions.
 
-**Note**: This sample project has specific technical dependencies on npm and esbuild. If you're creating a plugin from scratch, you can choose different tools, but you'll need to replace the build configuration accordingly.
-
 ### Install
 
 ```bash
@@ -151,6 +149,7 @@ Follow Obsidian's **Developer Policies** and **Plugin Guidelines**. In particula
 - Provide defaults and validation in settings.
 - Write idempotent code paths so reload/unload doesn't leak listeners or intervals.
 - Use `this.register*` helpers for everything that needs cleanup.
+- Add all my prompts to prompts.txt, with an empty line after each.
 
 **Don't**
 - Introduce network calls without an obvious user-facing reason and documentation.
