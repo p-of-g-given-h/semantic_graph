@@ -1,11 +1,11 @@
 {
-	"id": "sample-plugin",
-	"name": "Sample Plugin",
+	"id": "semantic_graph",
+	"name": "Semantic Graph",
 	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
-	"description": "Demonstrates some of the capabilities of the Obsidian API.",
-	"author": "Obsidian",
-	"authorUrl": "https://obsidian.md",
-	"fundingUrl": "https://obsidian.md/pricing",
+	"description": "Superimpose a semantic graph onto elements of markdown text.",
+	"author": "Peter Haider",
+	"authorUrl": "https://github.com/p-of-g-given-h",
+	"fundingUrl": "",
 	"isDesktopOnly": false
 }

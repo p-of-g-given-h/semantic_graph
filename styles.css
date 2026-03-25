@@ -1,8 +1,36 @@
-/*
+.semantic-graph-bullet-marker,
+.semantic-graph-preview-bullet {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 1.1em;
+	height: 1.1em;
+	color: var(--text-muted);
+	cursor: pointer;
+}
 
-This CSS file will be included with your plugin, and
-available in the app when your plugin is enabled.
+.semantic-graph-bullet-marker {
+	margin-right: 0.25em;
+	vertical-align: text-bottom;
+}
 
-If your plugin does not need CSS, delete this file.
+.semantic-graph-preview-bulletized {
+	list-style: none;
+}
 
-*/
+.semantic-graph-preview-bullet {
+	margin-left: -1.35em;
+	margin-right: 0.25em;
+	vertical-align: text-top;
+}
+
+.semantic-graph-bullet-marker:hover,
+.semantic-graph-bullet-marker:focus-visible,
+.semantic-graph-preview-bullet:hover,
+.semantic-graph-preview-bullet:focus-visible {
+	color: var(--interactive-accent);
+}
+
+.semantic-graph-bullet-has-metadata {
+	font-weight: var(--font-semibold);
+}

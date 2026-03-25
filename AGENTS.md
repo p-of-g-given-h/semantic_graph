@@ -248,3 +248,7 @@ this.registerInterval(window.setInterval(() => { /* ... */ }, 1000));
 - Developer policies: https://docs.obsidian.md/Developer+policies
 - Plugin guidelines: https://docs.obsidian.md/Plugins/Releasing/Plugin+guidelines
 - Style guide: https://help.obsidian.md/style-guide
+
+## Design Decisions
+- optional metadata is stored on a per-heading and per-bullet point level, in the markdown text.
+- metadata format looks like this, with embedded JSON: %%meta {"id":"0123afcb","type":"result","links":[{"target":"afcb0123","type":"answers"}]}%%

@@ -1,0 +1,8 @@
+In all identifiers that contain "MyPlugin" replace it with "SemanticGraphPlugin"
+
+Make bullet points clickable. This shall toggle the existence of metadata for the bullet point. When metadata is created, generate a new random 48 bit hex ID, and set the type field to "default", and the "links" list to empty. When a bullet point has metadata, render it using the icon "brain".
+
+When a bullet point has metadata, render it in bold face.
+
+When clicking on bullet points which have sub-bullet-points, metadata shall be toggled too, instead of expanding/collapsing them. Only when clicking on the little arrow that appears when hovering over them shall they be expanded or collapsed
+
