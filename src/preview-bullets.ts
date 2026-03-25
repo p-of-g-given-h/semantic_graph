@@ -69,9 +69,19 @@ function decoratePreviewListItem(
 	);
 	marker.setAttr("role", "button");
 	marker.tabIndex = 0;
-	marker.onmousedown = stopMarkerEvent;
+	marker.onmousedown = (event: MouseEvent) => {
+		if (event.button !== 0) {
+			return;
+		}
+
+		stopMarkerEvent(event);
+	};
 	marker.ontouchstart = stopMarkerEvent;
 	marker.onclick = async (event: MouseEvent) => {
+		if (event.button !== 0) {
+			return;
+		}
+
 		stopMarkerEvent(event);
 		await toggleBulletMetadataInFile(plugin.app, file, lineNumber);
 	};

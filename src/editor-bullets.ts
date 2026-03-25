@@ -159,6 +159,10 @@ function handleMarkerToggle(
 	event: Event,
 	view: EditorView,
 ): boolean {
+	if (event instanceof MouseEvent && event.button !== 0) {
+		return false;
+	}
+
 	const target = event.target;
 	if (!(target instanceof HTMLElement)) {
 		return false;

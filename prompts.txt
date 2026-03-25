@@ -6,3 +6,24 @@ When a bullet point has metadata, render it in bold face.
 
 When clicking on bullet points which have sub-bullet-points, metadata shall be toggled too, instead of expanding/collapsing them. Only when clicking on the little arrow that appears when hovering over them shall they be expanded or collapsed
 
+All bullet points which have metadata shall appear in the graph view as nodes. There shall be a link from the document which contains the bullet point to the bullet point node.
+
+It shall not be a separate graph view, but the graph view of the core plugin.
+
+clicking on a bullet point with the right mouse button shall not toggle its metadata.
+
+When hovering over a node in the graph view, the node jitters around. That shall not happen.
+
+There shall not be an extra node per document. Instead, the links from document to bullet point shall originate at the document nodes that are present already without this plugin.
+
+This didn't quite work. The links from document to bullet point start at an empty region.
+
+Now no links are visibble at all.
+
+Now the links start in the top left corner instead of at the document node.
+
+Now the links have disappeared again.
+
+Now the links start in the center of the bottom.
+
+Still doesn't match the position. And when I drag the document nodes around, the links don't follow.

@@ -21,6 +21,11 @@ export interface SectionBulletLine {
 	hasMetadata: boolean;
 }
 
+export interface ParsedBulletMetadataLine {
+	metadata: BulletMetadata;
+	text: string;
+}
+
 const BULLET_LINE_REGEX = /^(\s*)([-+*])(\s+)/;
 const METADATA_SUFFIX_REGEX = /\s*%%meta\s+(\{.*\})\s*%%\s*$/;
 
@@ -40,6 +45,41 @@ export function getBulletMarkerRange(lineText: string): BulletMarkerRange | null
 
 export function hasBulletMetadata(lineText: string): boolean {
 	return METADATA_SUFFIX_REGEX.test(lineText);
+}
+
+export function parseBulletMetadata(lineText: string): BulletMetadata | null {
+	const match = lineText.match(METADATA_SUFFIX_REGEX);
+	const metadataText = match?.[1];
+	if (!metadataText) {
+		return null;
+	}
+
+	try {
+		const parsed = JSON.parse(metadataText) as unknown;
+		return isBulletMetadata(parsed) ? parsed : null;
+	} catch {
+		return null;
+	}
+}
+
+export function parseBulletMetadataLine(lineText: string): ParsedBulletMetadataLine | null {
+	const markerRange = getBulletMarkerRange(lineText);
+	if (!markerRange) {
+		return null;
+	}
+
+	const metadata = parseBulletMetadata(lineText);
+	if (!metadata) {
+		return null;
+	}
+
+	const contentWithoutMetadata = lineText.replace(METADATA_SUFFIX_REGEX, "").trimEnd();
+	const bulletText = contentWithoutMetadata.slice(markerRange.to).trim();
+
+	return {
+		metadata,
+		text: bulletText,
+	};
 }
 
 export function toggleBulletMetadataLine(lineText: string): string | null {
@@ -114,6 +154,15 @@ export async function toggleBulletMetadataInFile(
 	return true;
 }
 
+export async function readMarkdownFileContent(app: App, file: TFile): Promise<string> {
+	const openEditor = findOpenEditorForFile(app, file.path);
+	if (openEditor) {
+		return openEditor.getValue();
+	}
+
+	return app.vault.cachedRead(file);
+}
+
 function createDefaultBulletMetadata(): BulletMetadata {
 	return {
 		id: createRandom48BitHexId(),
@@ -137,6 +186,29 @@ function createRandom48BitHexId(): string {
 
 function formatMetadataBlock(metadata: BulletMetadata): string {
 	return `%%meta ${JSON.stringify(metadata)}%%`;
+}
+
+function isBulletMetadata(value: unknown): value is BulletMetadata {
+	if (!value || typeof value !== "object") {
+		return false;
+	}
+
+	const metadata = value as Partial<BulletMetadata>;
+	return (
+		typeof metadata.id === "string" &&
+		typeof metadata.type === "string" &&
+		Array.isArray(metadata.links) &&
+		metadata.links.every(isBulletMetadataLink)
+	);
+}
+
+function isBulletMetadataLink(value: unknown): value is BulletMetadataLink {
+	if (!value || typeof value !== "object") {
+		return false;
+	}
+
+	const link = value as Partial<BulletMetadataLink>;
+	return typeof link.target === "string" && typeof link.type === "string";
 }
 
 function findOpenEditorForFile(app: App, path: string): Editor | null {

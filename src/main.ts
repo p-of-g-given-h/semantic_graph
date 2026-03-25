@@ -1,5 +1,6 @@
 import { Plugin } from "obsidian";
 import { registerBulletEditorExtension } from "./editor-bullets";
+import { registerSemanticGraphInCoreGraphView } from "./graph";
 import { registerBulletPreviewPostProcessor } from "./preview-bullets";
 import {
 	DEFAULT_SETTINGS,
@@ -18,6 +19,7 @@ export default class SemanticGraphPlugin extends Plugin {
 
 		registerBulletEditorExtension(this);
 		registerBulletPreviewPostProcessor(this);
+		registerSemanticGraphInCoreGraphView(this);
 	}
 
 	async saveSettings() {
